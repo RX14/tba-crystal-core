@@ -1,4 +1,4 @@
-class TBA::Core::User
+class Hydra::Core::User
   getter uuid : String
 
   property displayname : String

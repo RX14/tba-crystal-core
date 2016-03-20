@@ -1,4 +1,4 @@
-class TBA::Core::Credentials
+class Hydra::Core::Credentials
   getter user : User
   getter channel : Channel
 

@@ -1,4 +1,4 @@
-class TBA::Core::Server
+class Hydra::Core::Server
   getter uuid : String
 
   property name : String

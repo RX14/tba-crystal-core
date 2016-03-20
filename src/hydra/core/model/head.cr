@@ -1,4 +1,4 @@
-class TBA::Core::Head
+class Hydra::Core::Head
   getter uuid : String
 
   getter server : Server

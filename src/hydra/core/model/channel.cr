@@ -1,4 +1,4 @@
-class TBA::Core::Channel
+class Hydra::Core::Channel
   getter uuid : String
 
   property name : String

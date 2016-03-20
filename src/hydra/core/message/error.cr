@@ -1,4 +1,4 @@
-class TBA::Core::Message::Error < Exception
+class Hydra::Core::Message::Error < Exception
   ERROR_TYPES = {
     internal: {1, "Internal server error"},
     no_type: {2, "No type key on message"},

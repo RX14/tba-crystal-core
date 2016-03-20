@@ -1,7 +1,7 @@
 require "secure_random"
 require "./core/**"
 
-module TBA::Core
+module Hydra::Core
   @@servers = {} of String => Server
   @@heads = {} of String => Head
   @@channels = {} of String => Channel
@@ -111,5 +111,5 @@ module TBA::Core
   end
 end
 
-TBA::Core.run
+Hydra::Core.run
 

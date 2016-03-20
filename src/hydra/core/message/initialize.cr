@@ -1,6 +1,6 @@
 require "json"
 
-class TBA::Core::Message::Initialize
+class Hydra::Core::Message::Initialize
   JSON.mapping({
     version: Int32,
     uuid: String

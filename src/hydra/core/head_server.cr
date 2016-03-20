@@ -2,7 +2,7 @@ require "socket"
 require "json"
 require "secure_random"
 
-class TBA::Core::HeadServer
+class Hydra::Core::HeadServer
   def self.start
     server = TCPServer.new(2926)
 
