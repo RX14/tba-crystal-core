@@ -3,4 +3,8 @@ class Hydra::Core::Credentials
   getter channel : Channel
 
   property privilidged : Bool
+
+  def initialize(@user, @channel)
+    @privilidged = false
+  end
 end
