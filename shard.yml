@@ -4,4 +4,8 @@ version: 0.1.0
 authors:
   - RX14 <chris@rx14.co.uk>
 
+dependencies:
+  crouter:
+    github: jreinert/crouter
+
 license: MIT

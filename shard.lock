@@ -1,0 +1,6 @@
+version: 1.0
+shards:
+  crouter:
+    github: jreinert/crouter
+    commit: 8add7a4da1b75f6fbc93db5ca38d931f33decd14
+
