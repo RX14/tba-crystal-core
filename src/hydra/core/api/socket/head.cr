@@ -1,29 +1,29 @@
 require "socket"
 require "json"
-require "secure_random"
 
-class Hydra::Core::HeadServer
-  def self.start
+class Hydra::Core::API::Socket
+  # The fucc
+end
+
+class Hydra::Core::API::Socket::Head
+  def self.run
     server = TCPServer.new(2926)
 
-    # TCPServer fiber
-    spawn do
-      puts "Listening for heads on [::]:2926"
-      loop do
-        sock = server.accept
-        # Per-Connection fiber
-        spawn do
-          begin
-            connection_impl(sock)
-          rescue err : Message::Error
-            err.to_json sock
-          rescue err
-            # TODO: logging
-            puts err.inspect
-            Message::Error.new(:internal).to_json sock
-          ensure
-            sock.close
-          end
+    puts "Listening for heads on [::]:2926"
+    loop do
+      sock = server.accept
+      # Per-Connection fiber
+      spawn do
+        begin
+          connection_impl(sock)
+        rescue err : Message::Error
+          err.to_json sock
+        rescue err
+          # TODO: logging
+          puts err.inspect
+          Message::Error.new(:internal).to_json sock
+        ensure
+          sock.close
         end
       end
     end
@@ -36,9 +36,7 @@ class Hydra::Core::HeadServer
     err :no_initialize if get_type(first_msg_raw) != "initialize"
     init_msg = Message::Initialize.from_json first_msg_raw
 
-    puts "a"
     head = Core.get_head?(init_msg.uuid) || err :invalid_head_uuid
-    puts "b #{head.inspect}"
   end
 
   private def self.get_type(raw_msg) : String
