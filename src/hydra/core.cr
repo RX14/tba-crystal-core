@@ -17,25 +17,29 @@ module Hydra::Core
     @@servers.not_nil!
   end
 
-  def self.new_server(name)
+  def self.new_server(name : String)
     server = Server.new(SecureRandom.uuid, name)
     servers[server.uuid] = server
     server
   end
 
-  def self.get_server?(uuid)
+  def self.get_server?(uuid : String)
     servers[uuid]?
   end
 
-  def self.get_server(uuid)
+  def self.get_server(uuid : String)
     servers[uuid]
   end
 
-  def self.remove_server(uuid)
-    server = servers.delete(uuid)
+  def self.remove_server(uuid : String)
+    server = servers.delete(uuid).not_nil!
     server.channels.dup.each { |c| remove_channel c }
     server.heads.dup.each { |h| remove_head h }
     nil
+  end
+
+  def self.remove_server(server : Server)
+    remove_server server.uuid
   end
 
   def self.heads
@@ -49,18 +53,22 @@ module Hydra::Core
     head
   end
 
-  def self.get_head?(uuid)
+  def self.get_head?(uuid : String)
     heads[uuid]?
   end
 
-  def self.get_head(uuid)
+  def self.get_head(uuid : String)
     heads[uuid]
   end
 
-  def self.remove_head(uuid)
-    head = heads.delete(uuid)
-    head.server.delete head
+  def self.remove_head(uuid : String)
+    head = heads.delete(uuid).not_nil!
+    head.server.heads.delete head
     nil
+  end
+
+  def self.remove_head(head : Head)
+    remove_head head.uuid
   end
 
   def self.channels
@@ -74,44 +82,51 @@ module Hydra::Core
     channel
   end
 
-  def self.get_channel?(uuid)
+  def self.get_channel?(uuid : String)
     channels[uuid]?
   end
 
-  def self.get_channel(uuid)
+  def self.get_channel(uuid : String)
     channels[uuid]
   end
 
-  def self.remove_channel(uuid)
-    channel = channels.delete(uuid)
-    channel.server.delete channel
+  def self.remove_channel(uuid : String)
+    channel = channels.delete(uuid).not_nil!
+    channel.server.channels.delete channel
     nil
+  end
+
+  def self.remove_channel(channel : Channel)
+    remove_channel channel.uuid
   end
 
   def self.users
     @@users.not_nil!
   end
 
-  def self.new_user(nickname)
+  def self.new_user(nickname : String)
     user = User.new(SecureRandom.uuid, nickname)
     users[user.uuid] = user
     user
   end
 
-  def self.get_user?(uuid)
+  def self.get_user?(uuid : String)
     users[uuid]?
   end
 
-  def self.get_user(uuid)
+  def self.get_user(uuid : String)
     users[uuid]
   end
 
-  def self.remove_user(uuid)
-    user = users.delete(uuid)
+  def self.remove_user(uuid : String)
+    user = users.delete(uuid).not_nil!
     channels.each_value do |chan|
       chan.users.delete user
       chan.privilidges.delete user
     end
   end
-end
 
+  def self.remove_user(user : User)
+    remove_user user.uuid
+  end
+end

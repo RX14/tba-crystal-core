@@ -8,4 +8,15 @@ dependencies:
   crouter:
     github: jreinert/crouter
 
+development_dependencies:
+  power_assert:
+    github: RX14/power_assert.cr
+    version: ~> 0.2.4
+  spec2:
+    github: waterlink/spec2.cr
+    version: ~> 0.7.1
+  expand:
+    github: waterlink/expand.cr
+    version: ~> 0.14.1
+
 license: MIT
