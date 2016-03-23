@@ -14,5 +14,5 @@ shards:
 
   spec2:
     github: waterlink/spec2.cr
-    version: 0.7.1
+    version: 0.8.0
 
