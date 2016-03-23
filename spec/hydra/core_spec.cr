@@ -11,7 +11,7 @@ Spec2.describe Hydra::Core do
   let(:core) { Hydra::Core }
   let(:server) { core.new_server "test server" }
 
-  describe "#new_server" do
+  describe ".new_server" do
     it "updates the servers list" do
       assert core.servers.size == 0
 
@@ -34,7 +34,7 @@ Spec2.describe Hydra::Core do
     end
   end
 
-  describe "#remove_server" do
+  describe ".remove_server" do
     it "updates the servers list" do
       server1 = core.new_server "test server 1"
       server2 = core.new_server "test server 2"
@@ -73,7 +73,7 @@ Spec2.describe Hydra::Core do
     end
   end
 
-  describe "#new_head" do
+  describe ".new_head" do
     it "updates the heads list" do
       assert core.heads.size == 0
 
@@ -104,7 +104,7 @@ Spec2.describe Hydra::Core do
     end
   end
 
-  describe "#remove_head" do
+  describe ".remove_head" do
     it "updates the heads list" do
       head1 = core.new_head server
       head2 = core.new_head server
@@ -132,7 +132,7 @@ Spec2.describe Hydra::Core do
     end
   end
 
-  describe "#new_channel" do
+  describe ".new_channel" do
     it "updates the channel list" do
       assert core.channels.size == 0
 
@@ -170,7 +170,7 @@ Spec2.describe Hydra::Core do
     end
   end
 
-  describe "#remove_channel" do
+  describe ".remove_channel" do
     it "updates the channels list" do
       channel1 = core.new_channel "test channel 1", server
       channel2 = core.new_channel "test channel 2", server
@@ -198,7 +198,7 @@ Spec2.describe Hydra::Core do
     end
   end
 
-  describe "#new_user" do
+  describe ".new_user" do
     it "updates the users list" do
       assert core.users.size == 0
 
@@ -222,7 +222,7 @@ Spec2.describe Hydra::Core do
     end
   end
   
-  describe "#remove_user" do
+  describe ".remove_user" do
     it "updates the users list" do
       user1 = core.new_user "test user 1"
       user2 = core.new_user "test user 2"
