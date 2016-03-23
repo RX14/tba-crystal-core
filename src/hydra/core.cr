@@ -115,5 +115,3 @@ module Hydra::Core
   end
 end
 
-Hydra::Core.run
-
