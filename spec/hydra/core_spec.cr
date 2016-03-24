@@ -1,12 +1,7 @@
 require "../spec_helper"
 
 Spec2.describe Hydra::Core do
-  after do
-    core.servers.clear
-    core.heads.clear
-    core.channels.clear
-    core.users.clear
-  end
+  after { core_cleanup }
   
   let(:core) { Hydra::Core }
   let(:server) { core.new_server "test server" }
