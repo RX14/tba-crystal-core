@@ -29,26 +29,49 @@ class Hydra::Core::API::Socket::Head
     end
   end
 
-  private def self.connection_impl(sock)
-    first_msg_raw = sock.gets
-    return unless first_msg_raw
+  private def self.connection_impl(io)
+    type, message = read io
+    err :no_initialize unless type == "INIT"
 
-    err :no_initialize if get_type(first_msg_raw) != "initialize"
-    init_msg = Message::Initialize.from_json first_msg_raw
-
-    head = Core.get_head?(init_msg.uuid) || err :invalid_head_uuid
-  end
-
-  private def self.get_type(raw_msg) : String
-    parser = JSON::PullParser.new raw_msg
-
-    type = nil
-    parser.on_key("type") do
-      type = parser.read_string
+    begin
+      init_msg = Message::Initialize.from_json message
+    rescue
+      err :malformed_json
     end
 
-    err :no_type if type.nil?
-    type.not_nil!
+    head = Core.get_head?(init_msg.uuid) || err :invalid_head_uuid
+
+    loop do
+      type, message = read io
+      case type
+      when ""
+      else
+        err :invalid_command
+      end
+    end
+  end
+
+  private def self.read(io) : {String, String}
+    type = read_type io
+    p 3
+    rest = io.gets "\r\n"
+    p 4
+
+    err :malformed_message if rest.nil?
+
+    return type, rest.not_nil!
+  end
+
+  private def self.read_type(io) : String
+    p 1
+    type = io.gets(' ', 15)
+    p 2
+
+    err :malformed_message if type.nil?
+    type = type.not_nil!
+    err :malformed_message if type[-1] != ' '
+
+    type[(0...-1)]
   end
 
   macro err(type)
