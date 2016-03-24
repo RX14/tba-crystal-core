@@ -1,9 +1,11 @@
-class Hydra::Core::Message::Error < Exception
+class Hydra::Core::API::Socket::Message::Error < Exception
   ERROR_TYPES = {
     internal: {1, "Internal server error"},
-    no_type: {2, "No type key on message"},
-    no_initialize: {3, "No initialize message sent"},
-    invalid_head_uuid: {4, "Invalid head UUID"}
+    malformed_message: {2, "Message could not be parsed"},
+    invalid_command: {3, "Invalid command sent"},
+    malformed_json: {4, "JSON could not be parsed"},
+    no_initialize: {5, "No initialize message sent"},
+    invalid_head_uuid: {6, "Invalid head UUID"}
   }
 
   def initialize(error_key)
